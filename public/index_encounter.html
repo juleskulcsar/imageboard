@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="main">
+        <h1>Wassup {{ name }} ?</h1>
+        <p>
+            {{ userInfo.favoritefood }}
+        </p>
+        <!-- conditionals in Vue -->
+        <ul v-if="cities.length>0">
+            <!-- looping through arrays in Vue -->
+            <li v-for='city in cities'>
+                {{city.name}},{{city.country}}
+            </li>
+        </ul>
+        <p v-else>
+            Just No!
+        </p>
+    </div>
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

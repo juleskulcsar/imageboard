@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 40px;
+    /* justify-content: center; */
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+}
+
+.image_grid {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.images {
+    border: 2px solid black;
+}
