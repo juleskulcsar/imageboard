@@ -35,6 +35,8 @@ app.use(
     })
 );
 
+app.use(require("body-parser").json());
+
 app.get("/images", function(req, res) {
     db.getImages()
         .then(data => {
@@ -63,6 +65,16 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // res.json({
     //     file: req.file.filename //this is the url
     // });
+});
+
+app.get("/images", function(req, res) {
+    db.getImageById(req.query.id)
+        .then(data => {
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log("err in GET /images: ", err);
+        });
 });
 
 app.listen(8080, () => console.log("It's Britney, bitch!"));

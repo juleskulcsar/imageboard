@@ -24,7 +24,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-column-gap: 40px;
     /* justify-content: center; */
-    justify-content: space-around;
+    /* justify-content: space-around; */
     align-items: center;
     max-width: 960px;
     margin: 0 auto 30px;
@@ -73,9 +73,49 @@ form {
 }
 
 @media screen and (min-width: 40em) {
-    .grid {
+    .image_grid {
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 5px;
         min-height: inherit;
     }
+}
+
+.modal-wrapper {
+    position: fixed;
+    z-index: 9998;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: table;
+}
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.popImage {
+    width: 500px;
+    display: inline-block;
+    align-self: center;
+}
+.pop {
+    width: 100%;
+    text-align: center;
+}
+.modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }

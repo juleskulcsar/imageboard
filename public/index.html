@@ -7,6 +7,10 @@
 </head>
 <body>
     <div class="main">
+        <!-- <love-component v-bind:whatever="favorite"></love-component>
+        <div>
+            <input v-model="favorite>"
+        </div> -->
         <h1>I LOVE PIXELS</h1><br />
         <form>
             <input v-model="title" name="title" placeholder="title" type="text"/>
@@ -17,18 +21,60 @@
         </form><br />
         <h2>{{ name }}</h2>
 
+        <!-- <love-component
+        v-if="showSecondLoveComponent"
+        :whatever="favorite"
+        @change='change'>
+        </love-component> -->
+
+        <!-- <image-modal v-if="currentImage" :id=:currentImage></image-modal> -->
+
         <div class="grid">
             <div class="images" v-for ="image in images">
-                <img :src="image.url" class="image_grid" alt="image">
+                <img :src="image.url" class="image_grid" alt="image" :id="image.id" @click="clicked(image.id)">
                 <p class="image_title">{{image.title}}</p>
             </div>
         </div>
+        <div>
+            <modal v-if="showModal" :id="showModal" @close="showModal=false"></modal>
+        </div>
     </div>
+
+    <script type="text/x-template" id="modal-template">
+      <transition name="modal">
+          <div class="modal-wrapper">
+              <p>Photo-id {{id}}</p>
+              <div class="modal-image">
+                  <!-- <h2>{{image.title}}</h2> -->
+                  <div class="pop">
+                      <h2>{{image.title}}</h2>
+                      <img :src="image.url" class="popImage">
+                      <h2>{{image.description}}</h2>
+                      <h2>posted by {{image.username}}</h2>
+                      <h2>posted on {{image.created_at}}</h2>
+                  </div>
+
+              </div>
+              <button class="modal-btn" @click="$emit('close')">close</button>
+          </div>
+      </transition>
+  </script>
+
     <footer class="footer">
         &copy Jules K from SPICED BERLIN
     </footer>
+    <!-- do not put this script inside the "el" element -->
+    <!-- <script type="text/x-template" id="love-template">
+        <h2 @click="clicked">
+            I love <strong>{{something}}</strong>
+            <span v-if="whatever" @click="clicked2">
+                and <strong>{{whatever}}</strong>
+            </span>
+        </h2>
+    </script> -->
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/modal.js"></script>
     <script src="/js/script.js"></script>
 </body>
 </html>

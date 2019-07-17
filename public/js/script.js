@@ -7,11 +7,11 @@
             title: "",
             description: "",
             username: "",
-            file: null
+            file: null,
+            showModal: false
         }, //closes data
         mounted: function() {
             var self = this;
-            // console.log("this:", this);
             axios
                 .get("/images")
                 .then(function(resp) {
@@ -49,7 +49,14 @@
                     e.target.files[0]
                 );
                 this.file = e.target.files[0];
+            },
+            clicked: function(id) {
+                this.showModal = id;
             }
+            // clickedImage: function(e) {
+            //     console.log("sclickedImage id: ", this.id);
+            //     this.id = e.target.id;
+            // }
         } //closes methods
     }); //closes new Vue
 })();
