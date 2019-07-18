@@ -43,15 +43,15 @@
     <script type="text/x-template" id="modal-template">
       <transition name="modal">
           <div class="modal-wrapper">
-              <p>Photo-id {{id}}</p>
+              <!-- <p>Photo-id {{id}}</p> -->
               <div class="modal-image">
                   <!-- <h2>{{image.title}}</h2> -->
                   <div class="pop">
-                      <h2>{{image.title}}</h2>
-                      <img :src="image.url" class="popImage">
-                      <h2>{{image.description}}</h2>
-                      <h2>posted by {{image.username}}</h2>
-                      <h2>posted on {{image.created_at}}</h2>
+                      <h2>{{imageData.title}}</h2>
+                      <img :src="imageData.url" class="popImage">
+                      <h2>{{imageData.description}}</h2>
+                      <h2>posted by {{imageData.username}}</h2>
+                      <h2>posted on {{imageData.created_at}}</h2>
                   </div>
 
               </div>

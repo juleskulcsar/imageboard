@@ -40,7 +40,7 @@ app.use(require("body-parser").json());
 app.get("/images", function(req, res) {
     db.getImages()
         .then(data => {
-            console.log("3 images", data);
+            // console.log("3 images", data);
             res.json(data);
         })
         .catch(err => {
@@ -67,10 +67,13 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // });
 });
 
-app.get("/images", function(req, res) {
+app.get("/singleImage", function(req, res) {
+    console.log("req.body console: ", req.body);
     db.getImageById(req.query.id)
         .then(data => {
+            console.log("getting the id: ", req.query.id);
             res.json(data.rows);
+            console.log("data.rows console: ", data.rows);
         })
         .catch(err => {
             console.log("err in GET /images: ", err);
