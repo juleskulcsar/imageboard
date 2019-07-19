@@ -34,6 +34,21 @@ exports.getImageById = function getImageById(id) {
     );
 };
 
+exports.getComment = function getComment(image_id) {
+    return db.query(
+        "SELECT * FROM comments WHERE image_id=$1 ORDER BY created_at DESC",
+        [image_id]
+    );
+};
+
+exports.postComment = function postComment(image_id, commenter, comment) {
+    return db.query(
+        "INSERT INTO comments (image_id, commenter, comment) VALUES ($1, $2, $3) RETURNING *",
+        [image_id, commenter, comment]
+    );
+};
+
+//from the encounter
 // SELECT * FROM images
 // WHERE id<$1
 // ORDER BY id DESC

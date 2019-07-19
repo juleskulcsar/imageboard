@@ -67,16 +67,55 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // });
 });
 
+// app.get("/singleImage", function(req, res) {
+//     // console.log("req.body console: ", req.body);
+//     db.getImageById(req.query.id)
+//         .then(data => {
+//             // console.log("getting the id: ", req.query.id);
+//             res.json(data.rows);
+//             // console.log("data.rows console: ", data.rows);
+//         })
+//         .catch(err => {
+//             console.log("err in GET /images: ", err);
+//         });
+// });
+
 app.get("/singleImage", function(req, res) {
-    console.log("req.body console: ", req.body);
+    // console.log("req.body console: ", req.body);
     db.getImageById(req.query.id)
         .then(data => {
-            console.log("getting the id: ", req.query.id);
+            // console.log("getting the id: ", req.query.id);
             res.json(data.rows);
-            console.log("data.rows console: ", data.rows);
+            // console.log("data.rows console: ", data.rows);
         })
         .catch(err => {
             console.log("err in GET /images: ", err);
+        });
+});
+
+app.post("/comments", (req, res) => {
+    console.log("comment stuff: ", req.body.commenter, req.body.comment);
+    db.postComment(req.body.image_id, req.body.commenter, req.body.comment)
+        .then(data => {
+            res.json({
+                newComment: data.rows[0]
+            });
+        })
+        .catch(err => {
+            console.log("err in POST /comment: ", err);
+        });
+});
+
+app.get("/comments", (req, res) => {
+    console.log("get comment by id: ", req.query.id);
+    db.getComment(req.query.id)
+        .then(data => {
+            res.json({
+                comments: data.rows
+            });
+        })
+        .catch(err => {
+            console.log("err in GET /comments: ", err);
         });
 });
 

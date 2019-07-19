@@ -2,6 +2,7 @@
     new Vue({
         el: ".main",
         data: {
+            image_id: location.hash.slice(1),
             name: "Latest Images",
             images: [],
             title: "",
@@ -21,6 +22,10 @@
                 .catch(function(err) {
                     console.log("err in GET /images: ", err);
                 });
+            //encounter with Pete, imageboard part4
+            addEventListener("hashchange", function() {
+                self.image_id = location.hash.slice(1);
+            });
         }, //closes mounted function
         methods: {
             handleClick: function() {
@@ -51,7 +56,14 @@
                 this.file = e.target.files[0];
             },
             clicked: function(id) {
-                this.showModal = id;
+                // this.showModal = id;
+                this.image_id = id;
+            },
+            //encounter with pete, modal part4
+            closeModal: function() {
+                this.image_id = null;
+                location.hash = "";
+                history.replaceState(null, null, " ");
             }
             // clickedImage: function(e) {
             //     console.log("sclickedImage id: ", this.id);
