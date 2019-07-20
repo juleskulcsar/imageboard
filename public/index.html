@@ -7,13 +7,15 @@
 </head>
 <body>
     <div class="main">
-        <h1>I LOVE PIXELS</h1><br />
+        <h1>#PIXELS</h1><br />
+        <h3 id="upload_text">Upload your image</h3><br />
         <form>
             <input v-model="title" name="title" placeholder="title" type="text"/>
             <input v-model="description" name="description" placeholder="description" type="text"/>
             <input v-model="username" name="username" placeholder="username" type="text"/>
-            <input name="file" type="file" accept="image/*" @change='handleChange'/>
-            <button @click.prevent.default='handleClick' type="button" name="button">submit</button>
+            <input class="inputfile" name="file" type="file" accept="image/*" @change='handleChange' data-multiple-caption="{count} files selected" multiple/>
+            <label for="file">Choose a file</label>
+            <button @click.prevent.default='handleClick' type="button" name="button" class="submit-btn">submit</button>
         </form><br />
         <h2>{{ name }}</h2>
 
@@ -25,16 +27,38 @@
                 </a>
             </div>
         </div>
+
+        <div class="moreImg">
+           <button v-if="!hideButton" class="moreBtn" v-on:click="moreImages">Load More Images</button>
+       </div>
+
         <div>
             <!-- <modal v-if="showModal" :id="showModal" @close="showModal=false"></modal> -->
-            <modal v-if="image_id" v-bind:id="image_id" @close="image_id=false"></modal>
+            <modal v-if="image_id" v-bind:id="image_id" @close="closeModal"></modal>
         </div>
     </div>
 
     <script type="text/x-template" id="modal-template">
       <transition name="modal">
+
           <div class="modal-wrapper">
               <!-- <p>Photo-id {{id}}</p> -->
+              <div>
+                   <a v-if="imageData.prev_id != null" v-bind:href="'#' + imageData.prev_id" class="right arrow"></a>
+               </div>
+              <div class="modal-image">
+                  <div class="pop">
+                      <img :src="imageData.url" class="popImage">
+                      <div class="details">
+                          <h2 class="description">{{imageData.title}}</h2>
+                          <h2 class="description">{{imageData.description}}</h2>
+                          <h2 class="description">posted by {{imageData.username}}</h2>
+                          <h2 class="description">posted on {{imageData.created_at}}</h2>
+                      </div>
+                  </div>
+              </div>
+              <button class="modal-btn" @click="$emit('close')">X</button>
+
               <div class="commentSection">
                   <div class="text">LEAVE A COMMENT</div>
                   <input class="commenter_field" v-model="commentSection.commenter" type="text" placeholder="username"></input>
@@ -43,26 +67,22 @@
               </div>
 
               <div>
-                  <div>
-                      <div v-if="comments.length > 0">Comments</div>
+                  <!-- the if condition is to make the comment box disappear if no comments exist -->
+                  <div v-if="comments.length > 0" class="display_comments">
+                      <div class="comment_title">Comments</div>
                       <div id="comments" v-for="comment in comments">
-                          <div class="comment"><h3>{{ comment.comment }}</h3></div>
-                          <div class="commenter"><h3>comment posted by {{ comment.commenter }} on {{comment.created_at}}</h3></div>
+                          <div id="comment"><p>{{ comment.commenter }} said: " {{ comment.comment }} "</p></div>
+                          <div id="commenter"><p>on {{ (comment.created_at) }}</p></div>
                       </div>
                   </div>
               </div>
 
-              <div class="modal-image">
-                  <div class="pop">
-                      <h2>{{imageData.title}}</h2>
-                      <img :src="imageData.url" class="popImage">
-                      <h2>{{imageData.description}}</h2>
-                      <h2>posted by {{imageData.username}}</h2>
-                      <h2>posted on {{imageData.created_at}}</h2>
-                  </div>
+              <div>
+                  <a v-if="imageData.next_id != null" v-bind:href="'#' + imageData.next_id" class="left arrow"></a>
               </div>
-              <button class="modal-btn" @click="$emit('close')">close</button>
+
           </div>
+
       </transition>
   </script>
 <!-- do not put this script inside the "el" element -->

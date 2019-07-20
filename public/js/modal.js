@@ -30,7 +30,6 @@
                     }
                 })
                 .then(resp => {
-                    // that.id = resp.data.rows[0];
                     that.imageData = resp.data[0];
                     console.log("wtf is this? ", resp.data[0]);
                     that.url = resp.data.rows[0].url;
@@ -38,7 +37,6 @@
                     that.title = resp.data.rows[0].title;
                     that.description = resp.data.rows[0].description;
                     that.created_at = resp.data.rows[0].created_at;
-                    // console.log("image is: ", that.imageData);
                 })
                 .catch(err => {
                     console.log("error in component mounted: ", err);
@@ -51,6 +49,7 @@
                 })
                 .then(resp => {
                     that.comments = resp.data.comments;
+                    // console.log("this is data: ", resp.data);
                 })
                 .catch(err => {
                     console.log("err in GET /comments mounted: ", err);
@@ -77,7 +76,6 @@
                         that.title = resp.data.rows[0].title;
                         that.description = resp.data.rows[0].description;
                         that.created_at = resp.data.rows[0].created_at;
-                        // console.log("image is: ", that.imageData);
                     })
                     .catch(err => {
                         console.log("error in component mounted: ", err);
@@ -97,14 +95,8 @@
             }
         },
         methods: {
-            // clicked: function() {
-            //     this.something = this.whatever;
-            // },
-            // clickClose: function() {
-            //     this.$emit("close");
-            // },
-            addComment: function() {
-                // e.preventDefault();
+            addComment: function(e) {
+                e.preventDefault();
                 const that = this;
                 axios
                     .post("/comments", {
@@ -118,8 +110,9 @@
                         //     results.data.newComment
                         // );
                         // console.log("comments: ", that.comments);
-                        that.comments.unshift(results.data.newComment);
-                        that.newComment = "";
+                        that.comments.unshift(results.data.recentComment);
+                        // that.comments.pop();
+                        that.recentComment = "";
                         that.commentSection.commenter = "";
                         that.commentSection.comment = "";
                     })

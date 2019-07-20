@@ -8,6 +8,8 @@ var path = require("path");
 const s3 = require("./s3");
 const config = require("./config");
 
+// Vue.use(require("vue-moment"));
+
 var diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
         callback(null, __dirname + "/uploads");
@@ -40,7 +42,6 @@ app.use(require("body-parser").json());
 app.get("/images", function(req, res) {
     db.getImages()
         .then(data => {
-            // console.log("3 images", data);
             res.json(data);
         })
         .catch(err => {
@@ -67,19 +68,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // });
 });
 
-// app.get("/singleImage", function(req, res) {
-//     // console.log("req.body console: ", req.body);
-//     db.getImageById(req.query.id)
-//         .then(data => {
-//             // console.log("getting the id: ", req.query.id);
-//             res.json(data.rows);
-//             // console.log("data.rows console: ", data.rows);
-//         })
-//         .catch(err => {
-//             console.log("err in GET /images: ", err);
-//         });
-// });
-
 app.get("/singleImage", function(req, res) {
     // console.log("req.body console: ", req.body);
     db.getImageById(req.query.id)
@@ -98,7 +86,7 @@ app.post("/comments", (req, res) => {
     db.postComment(req.body.image_id, req.body.commenter, req.body.comment)
         .then(data => {
             res.json({
-                newComment: data.rows[0]
+                recentComment: data.rows[0]
             });
         })
         .catch(err => {
@@ -107,7 +95,7 @@ app.post("/comments", (req, res) => {
 });
 
 app.get("/comments", (req, res) => {
-    console.log("get comment by id: ", req.query.id);
+    // console.log("get comment by id: ", req.query.id);
     db.getComment(req.query.id)
         .then(data => {
             res.json({
@@ -116,6 +104,18 @@ app.get("/comments", (req, res) => {
         })
         .catch(err => {
             console.log("err in GET /comments: ", err);
+        });
+});
+
+app.get("/moreimages/:id", (req, res) => {
+    db.getMoreImages(req.params.id)
+        .then(data => {
+            res.json({
+                images: data.rows
+            });
+        })
+        .catch(function(err) {
+            console.log("Error in GET /moreimages: ", err);
         });
 });
 

@@ -4,7 +4,6 @@
 }
 
 body {
-    /* background-color: #4682b4;#008B8B #24e8e3*/
     background: -moz-linear-gradient(top, #250128 0%, #008b8b 100%);
     background: -webkit-gradient(
         linear,
@@ -20,11 +19,8 @@ body {
 
 .grid {
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-column-gap: 40px;
-    /* justify-content: center; */
-    /* justify-content: space-around; */
     align-items: center;
     max-width: 960px;
     margin: 0 auto 30px;
@@ -38,13 +34,7 @@ body {
     object-fit: cover;
 }
 
-.images {
-    border: 2px solid #663399;
-    border-radius: 3px;
-}
-
 .image_title {
-    /* position: absolute; */
     bottom: 0;
     width: 100%;
     padding: 10px;
@@ -87,8 +77,19 @@ form {
     left: 0px;
     width: 100%;
     height: 100%;
-    background-color: grey;
+    /* background-color: black; */
     display: table;
+    background: -moz-linear-gradient(top, #250128 0%, #008b8b 100%);
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(40%, #250128),
+        color-stop(100%, #008b8b)
+    );
+    background: -webkit-linear-gradient(top, #250128 0%, #008b8b 100%);
+    background: -ms-linear-gradient(top, #250128 0%, #008b8b 100%);
+    background: linear-gradient(to bottom, #250128 0%, #008b8b 100%);
 }
 
 .modal-enter {
@@ -106,23 +107,153 @@ form {
 }
 
 .popImage {
-    width: 500px;
+    max-height: 400px;
+    max-width: 400px;
     display: inline-block;
-    align-self: center;
+    position: relative;
+    right: 300px;
+    border: 3px solid white;
 }
 .pop {
-    width: 100%;
+    /* width: 100%; */
     text-align: center;
+    position: relative;
+    right: 100px;
+    top: 100px;
 }
 .modal-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 40px;
+    font-weight: 600;
+
+    background-color: white;
+    border: 3px solid blakc;
+    color: black;
+    padding: 10px 12px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 .commentSection {
-    position: relative;
-    left: 0;
+    position: absolute;
+    right: 200px;
+    top: 35px;
 }
-.comment {
+.display_comments {
+    position: absolute;
+    top: 100px;
+    right: 75px;
+    overflow: scroll;
+    height: 600px;
+    width: 500px;
+    border: 1px solid white;
+
+    background: -moz-linear-gradient(top, #008b8b 0%, #250128 100%);
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(40%, #008b8b) color-stop(100%, #250128)
+    );
+    background: -webkit-linear-gradient(top, #008b8b 0%, #250128 100%);
+    background: -ms-linear-gradient(top, #008b8b 0%, #250128 100%);
+    background: linear-gradient(to bottom, #008b8b 0%, #250128 100%);
+}
+.details {
+    position: relative;
+    right: 300px;
+    top: 30px;
+}
+.comment_title {
+    position: fixed;
+    top: 80px;
+}
+#comments {
+    border: 1px solid white;
+}
+#comment {
+    padding: 5px;
+    color: orange;
+}
+#commenter {
+    padding: 5px;
+    color: orange;
+}
+
+.description {
+    font-size: 18px;
+}
+
+.moreImg {
+    width: 100%;
+    text-align: center;
+}
+
+.moreBtn {
+    background-color: #185a58;
+    border: 1px solid white;
     color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.arrow {
+    position: fixed;
+    top: 40%;
+    border: 1px solid orange;
+    border-width: 0 10px 10px 0;
+    padding: 15px;
+    margin: 20px;
+    width: 40px;
+    height: 40px;
+}
+.arrow.left {
+    transform: rotate(135deg);
+    left: 1vw;
+}
+
+.arrow.right {
+    transform: rotate(-45deg);
+    right: 1vw;
+}
+#upload_text {
+    position: relative;
+    left: 150px;
+    top: 40px;
+}
+.submit-btn {
+    background-color: #185a58;
+    border: 2px solid white;
+    color: white;
+    padding: 5px 5px;
+    /* margin: 2px 2px; */
+    cursor: pointer;
+    border-radius: 16px;
+    width: 100px;
+}
+.footer {
+    color: white;
+    font-family: Raleway, sans-serif;
+    margin: 20px;
+    font-weight: bold;
+}
+
+.inputfile {
+    width: 100px;
+    height: 50px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    display: inline-block;
 }

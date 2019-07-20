@@ -24,9 +24,31 @@ exports.addNewUpload = function addImage(url, username, title, description) {
     );
 };
 
+// exports.getImageById = function getImageById(id) {
+//     return db.query(
+//         `SELECT *
+//         FROM images
+//         WHERE id = $1;
+//         `,
+//         [id]
+//     );
+// };
+
 exports.getImageById = function getImageById(id) {
     return db.query(
-        `SELECT *
+        `  SELECT *, (
+        SELECT id
+        FROM images
+        WHERE id < $1
+        ORDER BY id DESC
+        LIMIT 1)
+        as prev_id,
+        (
+        SELECT id FROM images
+        WHERE id > $1
+        ORDER BY id ASC
+        LIMIT 1)
+        as next_id
         FROM images
         WHERE id = $1;
         `,
@@ -48,7 +70,14 @@ exports.postComment = function postComment(image_id, commenter, comment) {
     );
 };
 
-//from the encounter
+exports.getMoreImages = function getMoreImages(lowestId) {
+    return db.query(
+        "SELECT * FROM images WHERE id < $1 ORDER BY created_at DESC LIMIT 12",
+        [lowestId]
+    );
+};
+
+// from the encounter
 // SELECT * FROM images
 // WHERE id<$1
 // ORDER BY id DESC
@@ -57,8 +86,8 @@ exports.postComment = function postComment(image_id, commenter, comment) {
 // SELECT id FROM images
 // ORDER BY id DESC
 // LIMIT 1
-
-//do a subquery
+//
+// do a subquery
 // SELECT *, (
 //     SELECT id FROM images
 //     ORDER BY id ASC
