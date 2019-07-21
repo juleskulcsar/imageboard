@@ -20,7 +20,7 @@ exports.getImages = function getImages() {
 exports.addNewUpload = function addImage(url, username, title, description) {
     return db.query(
         "INSERT INTO images (url, username, title, description) VALUES ($1, $2, $3, $4) RETURNING *",
-        [url, username, title, description]
+        [url, username || null, title || null, description || null]
     );
 };
 
@@ -76,6 +76,10 @@ exports.getMoreImages = function getMoreImages(lowestId) {
         [lowestId]
     );
 };
+
+// exports.deleteImage = function deleteImage(id) {
+//     return db.query(`DELETE FROM images WHERE id = $1`, [id]);
+// };
 
 // from the encounter
 // SELECT * FROM images

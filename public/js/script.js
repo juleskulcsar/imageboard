@@ -27,8 +27,8 @@
             });
         }, //closes mounted function
         methods: {
-            handleClick: function() {
-                // e.preventDefault();
+            handleClick: function(e) {
+                e.preventDefault();
                 var formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
@@ -40,6 +40,8 @@
                     .then(function(resp) {
                         console.log("resp from POST /upload", resp);
                         that.images.unshift(resp.data);
+                        //do pop so last image pops out when a new one is uploaded
+                        that.images.pop();
                         that.title = "";
                         that.username = "";
                         that.description = "";

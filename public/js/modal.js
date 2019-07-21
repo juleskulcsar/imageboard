@@ -119,6 +119,11 @@
                     .catch(err => {
                         console.log("err in addComment method modal.js: ", err);
                     });
+            }, //closes addComment
+            removeImage: function(id) {
+                axios.post(/deleteImage/ + id).then(resp => {
+                    resp.images.splice(id, 1);
+                });
             }
         }
     });

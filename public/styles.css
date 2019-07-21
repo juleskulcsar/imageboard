@@ -203,14 +203,15 @@ form {
 }
 
 .arrow {
+    color: white;
     position: fixed;
     top: 40%;
     border: 1px solid orange;
     border-width: 0 10px 10px 0;
     padding: 15px;
     margin: 20px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 .arrow.left {
     transform: rotate(135deg);
@@ -225,6 +226,7 @@ form {
     position: relative;
     left: 150px;
     top: 40px;
+    width: 200px;
 }
 .submit-btn {
     background-color: #185a58;
@@ -243,7 +245,7 @@ form {
     font-weight: bold;
 }
 
-.inputfile {
+/* .inputfile {
     width: 100px;
     height: 50px;
     opacity: 0;
@@ -256,4 +258,4 @@ form {
     font-weight: 700;
     color: white;
     display: inline-block;
-}
+} */
