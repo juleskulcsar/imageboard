@@ -13,3 +13,11 @@ Vue.js | Handlebars | AWS S3 | Node.js | Express.js | PostgreSQL
 #### Homepage
 
 <img src='./homepage.gif' />
+
+#### Image Upload
+
+<img src='./image-upload.gif' />
+
+#### Image Comments
+
+<img src='./comment.gif' />
