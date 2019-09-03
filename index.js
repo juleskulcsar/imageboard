@@ -7,6 +7,7 @@ var uidSafe = require("uid-safe");
 var path = require("path");
 const s3 = require("./s3");
 const config = require("./config");
+const moment = require("moment");
 
 // Vue.use(require("vue-moment"));
 
@@ -72,6 +73,12 @@ app.get("/singleImage", function(req, res) {
     // console.log("req.body console: ", req.body);
     db.getImageById(req.query.id)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                data.rows[i].created_at = moment(
+                    data.rows[i].created_at,
+                    moment.ISO_8601
+                ).format("MMM Do YY");
+            }
             // console.log("getting the id: ", req.query.id);
             res.json(data.rows);
             // console.log("data.rows console: ", data.rows);
@@ -85,6 +92,12 @@ app.post("/comments", (req, res) => {
     console.log("comment stuff: ", req.body.commenter, req.body.comment);
     db.postComment(req.body.image_id, req.body.commenter, req.body.comment)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                data.rows[i].created_at = moment(
+                    data.rows[i].created_at,
+                    moment.ISO_8601
+                ).format("MMM Do YY");
+            }
             res.json({
                 recentComment: data.rows[0]
             });
@@ -98,6 +111,12 @@ app.get("/comments", (req, res) => {
     // console.log("get comment by id: ", req.query.id);
     db.getComment(req.query.id)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                data.rows[i].created_at = moment(
+                    data.rows[i].created_at,
+                    moment.ISO_8601
+                ).format("MMM Do YY");
+            }
             res.json({
                 comments: data.rows
             });
