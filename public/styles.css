@@ -60,6 +60,8 @@ h2 {
 form {
     color: white;
     text-align: center;
+    position: relative;
+    left: 80px;
 }
 
 @media screen and (min-width: 40em) {
@@ -224,7 +226,7 @@ form {
 }
 #upload_text {
     position: relative;
-    left: 150px;
+    left: 250px;
     top: 40px;
     width: 200px;
 }
